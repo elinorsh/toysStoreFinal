@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Toys store</title>
+    <script src="angularScripts/angular.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" type="text/css" href="views/style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=La Belle Aurore" rel='stylesheet'>
+    <link href="https://fonts.googleapis.com/css?family=Bubbler+One" rel="stylesheet">
+    <script type="text/javascript" src="angularScripts/angular-route.js"></script>
+    <script type="text/javascript" src="angularScripts/angular-local-storage.min.js"></script>
+    <script type="text/javascript" src="angularScripts/xml2json.js"></script>
+    <script type="text/javascript" src="StorageService.js"></script>
+    <script type="text/javascript" src="Controllers/productController.js"></script>
+    <script type="text/javascript" src="Controllers/homeController.js"></script>
+    <script type="text/javascript" src="Controllers/loginController.js"></script>
+    <script type="text/javascript" src="Controllers/registerController.js"></script>
+    <script type="text/javascript" src="Controllers/cartController.js"></script>
+    <script type="text/javascript" src="Controllers/historyController.js"></script>
+    <script type="text/javascript" src="Services/UserService.js"></script>
+    <script type="text/javascript" src="Services/CartService.js"></script>
+    <script type="text/javascript" src="Models/ProductModel.js"></script>
+    <script type="text/javascript" src="Models/CityModel.js"></script>
+
+
+</head>
+<body>
+    <div ng-controller="homeController as homeCtrl" id="upper">
+
+        <h3>Hello, {{homeCtrl.UserService.username}}!</h3><h6 ng-show="homeCtrl.UserService.isLoggedIn"><br/>Last sign-in: {{homeCtrl.UserService.lastLogin | date : 'medium'}}</h6>
+            <div id="mainmenu">
+
+                <span ng-hide="!homeCtrl.UserService.isLoggedIn">
+                    <a ng-href="#/cart">
+                    <img id="cartImage" ng-src="views\pics\cart.png" width="25"></a>
+                </span>
+                <a ng-href="#/">Home</a>
+                <a ng-href="#/login" ng-hide="homeCtrl.UserService.isLoggedIn">Login</a>
+                </span>
+                <a ng-href="#/shop">Shop</a>
+                <a ng-href="#/about" ng-hide="!homeCtrl.UserService.isLoggedIn">About</a>
+                <a ng-href= "#/register" ng-hide="homeCtrl.UserService.isLoggedIn">Register</a>
+                <a ng-href= "" ng-click="homeCtrl.UserService.logout()" ng-show="homeCtrl.UserService.isLoggedIn">LogOut</a>
+            </div>
+        <div id="logo">
+        </div>
+    </div>
+    <ng-view></ng-view>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<h2>Home</h2>
+<div ng-controller="homeController as homeCtrl" class="webpage" id="home">
+    <br>
+    <table>
+        <tr align="justify" align="center">
+            <td width="50%" align="center" valign="top">
+                <h5>Top Products!</h5>
+                <div id="left" ng-init="homeCtrl.getTop5()">
+                    <div ng-show="homeCtrl.showTop">
+                        <div ng-show="homeCtrl.top5">
+                            <table>
+                                <thead>
+                                <td>Name</td>
+                                <td>Category</td>
+                                <td>Price</td>
+                                <td>Picture</td>
+                                <td>Details</td>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="prod in homeCtrl.top5">
+                                    <td>{{prod['ProductName']}}</td>
+                                    <td>{{prod['Category']}}</td>
+                                    <td>{{prod['Price']}}$</td>
+                                    <td><img ng-src="views\pics\{{prod['PicturePath']}}" width="50"></td>
+                                    <td><img id="prodimg" ng-src="views\pics\info.png" width="30" ng-click="homeCtrl.getProducctDetails(prod, 'top')"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-show="!homeCtrl.showTop">
+                        <table class="tg">
+                            <tr>
+                                <th rowspan="2"><img ng-src="views\pics\{{homeCtrl.selectedProdTop['pic']}}" width="100"></th>
+                                <th><h3>{{homeCtrl.selectedProdTop['name']}}</h3>
+                                    <h4>Description: {{homeCtrl.selectedProdTop['desc']}} </h4>
+                                    <h4>Manufacture: {{homeCtrl.selectedProdTop['manuf']}} </h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <form>
+                                        Price: {{homeCtrl.selectedProdTop['price']}} $
+                                        <br/>
+                                        Quantity: <input type="number" min="1" ng-model="homeCtrl.selectedProd['amount']" size="1" placeholder="Quantity" value="1">
+                                        <br/> <b>Total:</b> {{homeCtrl.selectedProdTop['amount'] * (homeCtrl.selectedProdTop['price'])}} $
+
+                                        <input type="submit" value="Add To Cart" ng-click="homeCtrl.addToCartHome('top')">
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                        <img ng-src="views\pics\back.png" ng-click="homeCtrl.showProd('top')" width="40">
+
+                    </div>
+                </div>
+            </td>
+            <td width="50%" align="center" valign="top" >
+                <div ng-show="homeCtrl.newProds">
+                    <div id="right" ng-show="homeCtrl.showNew">
+                        <h5>New Products In Our Store!</h5>
+                        <table>
+                            <thead>
+                            <td><a href="">Name</a></td>
+                            <td><a href="">Category</a></td>
+                            <td><a href="">Price</a></td>
+                            <td><a href="">Picture</a></td>
+                            <td><a href="">Details</a></td>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="prod in homeCtrl.newProds">
+                                <td>{{prod['ProductName']}}</td>
+                                <td>{{prod['Category']}}</td>
+                                <td>{{prod['Price']}}$</td>
+                                <td><img ng-src="views\pics\{{prod['PicturePath']}}" width="50"></td>
+                                <td><img id="prodimg2" ng-src="views\pics\info.png" width="30" ng-click="homeCtrl.getProducctDetails(prod, 'new')"></td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                <div ng-show="!homeCtrl.showNew">
+                    <table class="tg">
+                        <tr>
+                            <th rowspan="2"><img ng-src="views\pics\{{homeCtrl.selectedProdNew['pic']}}" width="100"></th>
+                            <th><h3>{{homeCtrl.selectedProdNew['name']}}</h3>
+                                <h4>Description: {{homeCtrl.selectedProdNew['desc']}} </h4>
+                                <h4>Manufacture: {{homeCtrl.selectedProdNew['manuf']}} </h4>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <form>
+                                    Price: {{homeCtrl.selectedProdNew['price']}} $
+                                    <br/>
+                                    Quantity: <input type="number" min="1" ng-model="homeCtrl.selectedProdNew['amount']" size="1" placeholder="Quantity" value="1">
+                                    <br/> <b>Total:</b> {{homeCtrl.selectedProdNew['amount'] * (homeCtrl.selectedProdNew['price'])}} $
+
+                                    <input type="submit" value="Add To Cart" ng-click="homeCtrl.addToCartHome('new')">
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                    <img ng-src="views\pics\back.png" ng-click="homeCtrl.showProd('new')" width="40">
+                </div>
+                </div>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+    </table>
+    <br>
+</div>
+</body>
+</html>

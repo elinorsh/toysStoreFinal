@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta charset="UTF-8">
+    <title>Shop</title>
+</head>
+<body>
+<div ng-controller="productController as prodsCtrl" class="webpage" id="shop">
+    <h2>Shop</h2>
+    <table>
+        <tbody>
+        <tr align="justify" align="center">
+            <td width="50%" align="center" valign="top">
+                <h5>Products</h5>
+                <div>
+                    <label>Filter Results:</label>
+                    <select ng-model="prodsCtrl.selectedCat"
+                            ng-options="category.CategoryName for category in prodsCtrl.categories track by category.CategoryName"
+                            ng-change="prodsCtrl.getProdsByCategory(prodsCtrl.selectedCat['CategoryName'])">
+                    </select>
+                    <button ng-click="prodsCtrl.getAllProds()">Clear filters</button>
+                    <br/>
+                    <br/>
+                    <input type="text"
+                           ng-model="prodsCtrl.searchInput"
+                           name="search"
+                           ng-pattern="/^[a-zA-Z]*$/"
+                           placeholder="search product">
+                    <button ng-click="prodsCtrl.searchProduct()">Search!</button>
+                    <!-- <label>Show Category: {{prodsCtrl.selectedCat['CategoryName']}}</label> -->
+                </div>
+                <div id="left">
+                    <div ng-show="prodsCtrl.showProds">
+                        <div ng-show="prodsCtrl.prods">
+                            <table>
+                                <thead>
+                                <td><a href="" ng-click="prodsCtrl.orderby='ProductName'">Name</a></td>
+                                <td><a href="" ng-click="prodsCtrl.orderby='Category'">Category</a></td>
+                                <td><a href="" ng-click="prodsCtrl.orderby='Price'">Price</a></td>
+                                <td>Picture</td>
+                                <td>Details</td>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="prod in prodsCtrl.prods  | orderBy:prodsCtrl.orderby">
+                                    <td>{{prod['ProductName']}}</td>
+                                    <td>{{prod['Category']}}</td>
+                                    <td>{{prod['Price']}}$</td>
+                                    <td><img ng-src="views\pics\{{prod['PicturePath']}}" width="50"></td>
+                                    <td><img id="prodimg" ng-src="views\pics\info.png" width="30" ng-click="prodsCtrl.getProducctDetails(prod, 'all')"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-show="!prodsCtrl.showProds">
+                        <table class="tg">
+                            <tr>
+                                <th rowspan="2"><img ng-src="views\pics\{{prodsCtrl.selectedProdAll['pic']}}" width="100"></th>
+                                <th><h3>{{prodsCtrl.selectedProdAll['name']}}</h3>
+                                    <h4>Description: {{prodsCtrl.selectedProdAll['desc']}} </h4>
+                                    <h4>Manufacture: {{prodsCtrl.selectedProdAll['manuf']}} </h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <form>
+                                        Price: {{prodsCtrl.selectedProdAll['price']}} $
+                                        <br/>
+                                        Quantity: <input type="number" min="0" ng-model="prodsCtrl.selectedProdAll['amount']" size="1" placeholder="Quantity" value="1">
+                                        <br/> <b>Total:</b> {{prodsCtrl.selectedProdAll['amount'] * (prodsCtrl.selectedProdAll['price'])}} $
+
+                                        <input type="submit" value="Add To Cart" ng-click="prodsCtrl.addToCartProd('all')">
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                        <img ng-src="views\pics\back.png" ng-click="prodsCtrl.showProd('all')" width="40">
+
+                    </div>
+                </div>
+            </td>
+            <td width="50%" align="center" valign="top" >
+                <div ng-show="prodsCtrl.recommendedProds">
+                    <div id="right" ng-show="prodsCtrl.showRecProds">
+                        <h5>Recommended For You!</h5>
+                        <table>
+                            <thead>
+                            <td><a href="" ng-click="prodsCtrl.orderby='ProductName'">Name</a></td>
+                            <td><a href="" ng-click="prodsCtrl.orderby='Category'">Category</a></td>
+                            <td><a href="" ng-click="prodsCtrl.orderby='Price'">Price</a></td>
+                            <td>Picture</td>
+                            <td>Details</td>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="prod in prodsCtrl.recommendedProds">
+                                <td>{{prod['ProductName']}}</td>
+                                <td>{{prod['Category']}}</td>
+                                <td>{{prod['Price']}}$</td>
+                                <td><img ng-src="views\pics\{{prod['PicturePath']}}" width="50"></td>
+                                <td><img id="prodimg2" ng-src="views\pics\info.png" width="30" ng-click="prodsCtrl.getProducctDetails(prod, 'rec')"></td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div ng-show="!prodsCtrl.showRecProds">
+                        <table class="tg">
+                            <tr>
+                                <th rowspan="2"><img ng-src="views\pics\{{prodsCtrl.selectedProdRec['pic']}}" width="100"></th>
+                                <th><h3>{{prodsCtrl.selectedProdRec['name']}}</h3>
+                                    <h4>Description: {{prodsCtrl.selectedProdRec['desc']}} </h4>
+                                    <h4>Manufacture: {{prodsCtrl.selectedProdRec['manuf']}} </h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <form>
+                                        Price: {{prodsCtrl.selectedProdRec['price']}} $
+                                        <br/>
+                                        Quantity: <input type="number" min="0" ng-model="prodsCtrl.selectedProdRec['amount']" size="1" placeholder="Quantity" value="1">
+                                        <br/> <b>Total:</b> {{prodsCtrl.selectedProdRec['amount'] * (prodsCtrl.selectedProdRec['price'])}} $
+
+                                        <input type="submit" value="Add To Cart" ng-click="prodsCtrl.addToCartProd('rec')">
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                        <img ng-src="views\pics\back.png" ng-click="prodsCtrl.showProd('rec')" width="40">
+
+                    </div>
+
+                </div>
+            </td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <br>
+</div>
+</body>
+</html>

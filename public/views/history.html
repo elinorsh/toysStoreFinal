@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Orders History</title>
+</head>
+<body>
+<div class="webpage" ng-controller="historyController as historyCtrl" id="history">
+
+    <a ng-href="#/cart"> <img ng-src="views\pics\back.png" width="30"><label>Back To Cart</label></a>
+    <h2>Orders History</h2>
+    <div ng-show="!historyCtrl.noOrders">
+    <div ng-init="historyCtrl.getOrders()" id="historyDiv">
+        <label>Choose Order Data:</label>
+    <select ng-model="historyCtrl.selectedOrder"
+            ng-options="order.OrderDate for order in historyCtrl.orders"
+            ng-change="historyCtrl.getProdsByOrder(historyCtrl.selectedOrder['OrderID'])">
+    </select>
+    </div>
+    <div id="details">
+        <h5>Order Details</h5><br/>
+        <h3>Order Date: {{historyCtrl.detailsOrder[0]['OrderDate'] | date : 'medium'}}</h3>
+        <h3>Delivery Date: {{historyCtrl.detailsOrder[0]['DeliveryDate'] | date : 'medium'}}</h3>
+        <h3>Total Price: {{historyCtrl.detailsOrder[0]['TotalPrice']}}</h3>
+        <h3>Currency: {{historyCtrl.detailsOrder[0]['Currency']}}</h3>
+        <h3>Description: {{historyCtrl.detailsOrder[0]['Description']}}</h3>
+    </div>
+    </div>
+    <div ng-show="historyCtrl.noOrders">
+        <label>No Previous Orders</label>
+    </div>
+
+
+</div>
+</body>
+</html>

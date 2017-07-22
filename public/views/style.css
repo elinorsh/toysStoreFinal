@@ -1,0 +1,155 @@
+html{
+    background-image: url("pics/bg41.jpg");
+    background-position: left;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+h2,h3,h5,h6{
+    font-family:'Bubbler One', cursive;
+    text-align: center;
+    line-height: 1px;
+    font-weight: bold;
+}
+
+h2{
+    font-size: 36px;
+    line-height: 1px;
+
+}
+
+h3{
+    font-size: 20px;
+    line-height: 1px;
+}
+
+h6{
+    font-size: 14px;
+    line-height: 1px;
+}
+
+h5{
+    font-size: 28px;
+    line-height: 5px;
+}
+
+form{
+    padding: 50px;
+    background: rgba(255, 255, 255,0.7);
+}
+
+#details{
+    background: rgba(255, 255, 255,0.7);
+}
+
+#historyDiv, #history{
+    padding: 50px;
+}
+
+#header{
+    font-family:'Bubbler One', cursive;
+    font-size: 26px;
+    position: fixed;
+
+}
+
+#history, #cart{
+    alignment: center;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+    margin: 20px;
+
+}
+
+label{
+    font-family:'Bubbler One', cursive;
+    font-size: 16px;
+    color: black;
+    font-weight: bold;
+}
+
+p{
+    font-family:'Bubbler One', cursive;
+    font-size: 16px;
+    color:red;
+    font-weight: bold;
+}
+
+#mainmenu
+{
+    font-weight: bold;
+    font-family:'Bubbler One', cursive;
+    font-size: 20px;
+    word-spacing: 15px;
+}
+
+
+input, select, button {
+    font-family: cursive;
+    border: 2px solid #555555;
+    border-bottom-color: black;
+    padding: 4px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+#logo{
+    alignment: left;
+}
+
+#cartImage, #prodimg, #prodimg2{
+    cursor: pointer;
+}
+
+
+#upper {
+    padding: 50px;
+    text-align: center;
+    margin: auto;
+    background-image: url("pics/toys2.png");
+    background-position: left;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.webpage{
+    background-position: bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+
+}
+
+a { color:black } /* Globally */
+a{
+    text-decoration: none;
+    cursor: pointer;
+}
+a:visited { text-decoration: none;}
+a:hover { text-decoration: none; color:black; }
+a:focus { text-decoration: none; color:black; }
+a:hover, a:active { text-decoration: none; color:grey; }
+
+table {
+    background: rgba(255, 255, 255,0.7);
+    text-align: left;
+    font-family:'Bubbler One', cursive;
+    font-size: 18px;
+    font-style: oblique;
+    font-weight: bold;
+    padding: 20px;
+    border: 2px;
+    margin: 10px;
+    border-color: lightgray;
+}
+
+tr:nth-child(even) {background-color: rgb(233, 238, 241)}
+tr{
+    padding: 5px;
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta charset="UTF-8">
+    <title>cart</title>
+</head>
+<body>
+<h2>Cart</h2>
+
+<div ng-controller="cartController as cartCtrl" class="webpage" id="cart">
+    <br>
+    <table>
+        <tr align="justify" align="center">
+            <td width="50%" align="center" valign="top">
+                <div id="left" ng-show="cartCtrl.showCartProds">
+                    <div ng-show="cartCtrl.showProdsList">
+                        <div >
+                            <table>
+                                <thead>
+                                <td><a href="">Product Name</a></td>
+                                <!-- <td><a href="">Category</a></td> -->
+                                <td><a href="">Price</a></td>
+                                <td><a href="">Picture</a></td>
+                                <td><a href="">Amount</a></td>
+                                <td><a href="">Details</a></td>
+                                <td><a href="">Remove</a></td>
+                                </thead>
+                                <tbody>
+                                <tr ng-repeat="prod in cartCtrl.prods">
+                                    <td>{{prod['name']}}</td>
+                                    <!-- <td>{{prod['Category']}}</td> -->
+                                    <td>{{(prod['amount'] * prod['price'])}}$</td>
+                                    <td><img ng-src="views\pics\{{prod['pic']}}" width="50"></td>
+                                    <td>{{prod['amount']}}</td>
+                                    <td><img id="prodimg2" ng-src="views\pics\info.png" width="30" ng-click="cartCtrl.getProducctDetails(prod)"></td>
+                                    <td><img id="removeProdimg" ng-src="views\pics\red-x.jpg" width="20" ng-click="cartCtrl.RemoveFromCart(prod)"></td>
+                                </tr>
+                                <tr> <b>Total:</b> {{total}} $</tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div ng-show="!cartCtrl.showProdsList">
+                        <table class="tg">
+                            <tr>
+                                <th rowspan="2"><img ng-src="views\pics\{{cartCtrl.selectedProd['pic']}}" width="100"></th>
+                                <th><h3>{{cartCtrl.selectedProd['name']}}</h3>
+                                    <h4>{{cartCtrl.selectedProd['desc']}} </h4>
+                                </th>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <form>
+                                        Price: {{cartCtrl.selectedProd['price']}} $
+                                        <br/>
+                                        Quantity: <input type="number" min="1" ng-model="cartCtrl.selectedProd['amount']" size="1" placeholder="{{cartCtrl.selectedProd['amount']}}" value="1">
+                                        <br/> <b>Total:</b> {{cartCtrl.selectedProd['amount'] * (cartCtrl.selectedProd['price'])}} $
+
+                                        <input type="submit" value="Update Cart" ng-click="cartCtrl.UpdateCart(cartCtrl.selectedProd)">
+                                    </form>
+                                </td>
+                            </tr>
+                        </table>
+                        <img ng-src="views\pics\back.png" ng-click="cartCtrl.showProd()" width="40">
+                    </div>
+                    <button ng-show="cartCtrl.prods.length>0" ng-click="cartCtrl.ExecuteOrder()">
+                        Place order
+                    </button>
+                    <br/>
+                    <br/>
+
+                </div>
+                <div ng-show="!cartCtrl.showCartProds">
+                    <label style="font-size: 20px">Cart is empty</label>
+                </div>
+                <br/><br/><br/><br/>
+                <div>
+                    <a ng-href="#/history">View Orders History</a>
+                </div>
+            </td>
+
+        </tr>
+        <tr></tr>
+    </table>
+    <br>
+</div>
+</body>
+</html>
