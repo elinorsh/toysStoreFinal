@@ -2,7 +2,7 @@
  * Created by user on 26-Jun-17.
  */
 
-angular.module("myApp").controller('productController', ['$http','$window','CartService', 'UserService', 'ProductModel', function ($http,$window,CartService,UserService, ProductModel) {
+angular.module("myApp").controller('productController', ['$http','$window','CartService', 'UserService', 'ProductModel', function ($http,$window,CartService,UserService,ProductModel) {
     let self = this;
     self.selectedCat = "all";
     self.orderby = "ProductName";

@@ -18,11 +18,8 @@ app.controller('cartController', ['CartService','UserService','localStorageServi
         else{
             self.showCartProds = UserService.isLoggedIn;
         }
-        //self.showCartProds = (UserService.isLoggedIn && self.prods.length>0);
-        //console.log('All cart product: ' + JSON.stringify(self.prods));
 
         angular.forEach(self.prods, function (prod) {
-            //self.total += prod['amount']*prod['price'];
             $scope.total += prod['amount']*prod['price'];
         });
 
@@ -33,28 +30,26 @@ app.controller('cartController', ['CartService','UserService','localStorageServi
             self.selectedProd['price']=prod['price'];
             self.selectedProd['amount']=prod['amount'];
             self.selectedProd['pic']=prod['pic'];
-            //self.selectedProd['id']=prod['ProductID'];
             self.showProdsList = false;
-            //console.log('selectedProd of cart is: ' + JSON.stringify(self.selectedProd));
         };
 
         self.calculateTotal = function () {
             $scope.total = 0;
             angular.forEach(self.prods, function (prod) {
-                //self.total += prod['amount']*prod['price'];
                 $scope.total += prod['amount']*prod['price'];
             });
         };
 
         self.UpdateCart = function (prod1) {
-            angular.forEach(self.prods, function (prod) {
-                if (prod['name'] == prod1['name']) {
-                    prod['amount'] = prod1['amount'];
-                    prod['price'] = prod1['price'];
+            for (let i=0; i<self.prods.length; i++) {
+                if (self.prods[i]['name'] == prod1['name']) {
+                    self.prods[i]['amount'] = prod1['amount'];
+                    self.prods[i]['price'] = prod1['price'];
                 }
-                // the amount of selcted prod updated automaticlly?
-            });
+            }
             self.calculateTotal();
+            localStorageService.set(UserService.username, self.prods);
+            UserService.cart = self.prods;
             $window.alert('Your cart has been updated');
         };
 

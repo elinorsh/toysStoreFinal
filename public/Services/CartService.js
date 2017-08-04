@@ -10,21 +10,15 @@ app.factory('CartService', ['$http','UserService','localStorageService', '$windo
         return $http.post('/isProductInStock', {pid: prod['id'], amount: prod['amount']})
             .then(function (res) {
                 if (res && res['data']['isProductInStock']) {
-                    //console.log('res is: '+JSON.stringify(res));
-                    console.log('index is: '+UserService.cart.indexOf(prod));
                     var index = arrayObjectIndexOf(UserService.cart, prod)
                     if (  index != -1 ) { //if the product is already added to cart
-                        //var current = UserService.cart.pop(prod);
                         UserService.cart[index]['amount'] += prod['amount'];
-                        //prod['amount'] += current['amount'];
-                        //prod['price'] += current['price'];
                     }
                     else {
                         UserService.cart.push(prod);
                     }
 
                     let valueStored = localStorageService.get(UserService.username);
-                    //console.log('valueStored is: '+JSON.stringify(valueStored));
                     if (localStorageService.set(UserService.username, UserService.cart)) {
                         let valueStored = localStorageService.get(UserService.username);
                         console.log('cart added to storage. now valueStored is: '+JSON.stringify(valueStored));

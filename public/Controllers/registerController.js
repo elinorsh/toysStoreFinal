@@ -9,6 +9,7 @@ app.controller('registerController', ['UserService', '$location', '$window', '$h
         self.usernameOK = true;
         self.countries = [];
         self.selectedCountry = "";
+        self.disableButton = false;
         self.initCats = function () {
             $http.get('/getAllCategories')
                 .then(function (res) {
@@ -21,6 +22,7 @@ app.controller('registerController', ['UserService', '$location', '$window', '$h
                     });
                 });
         };
+
 
         self.getCountries = function () {
           $http.get("countries.xml", {
@@ -58,6 +60,7 @@ app.controller('registerController', ['UserService', '$location', '$window', '$h
 
         self.register = function (valid) {
             if(valid){
+                self.disableButton = true;
                 let data = {username : self.user.username};
                 var finishCategories = false;
                 $http.post('/isUserNameExist', data)
@@ -65,16 +68,16 @@ app.controller('registerController', ['UserService', '$location', '$window', '$h
                         if(res && res['data']['isUserNameExist']==false) {
                             let counter = 0;
                             self.user.favs = [];
-                            angular.forEach(self.categories, function (cat) {
+                            for (let i=0; i<self.categories.length; i++){
                                 let catName = self.categoriesArr[counter]['CategoryName'];
-                                if(cat==true){
+                                if(self.categories[i]==true) {
                                     self.user.favs.push(catName)
+                                    counter++;
                                 }
-                                counter++;
-                                if(counter == self.categories.length) {
-                                    finishCategories = true;
-                                }
-                            });
+                            }
+                            if(counter > 0) {
+                                finishCategories = true;
+                            }
                             if(finishCategories==true) {
                                  var countryToSend = JSON.stringify(self.user['country']['name']);
                                 self.user['country'] = countryToSend.substring(1, countryToSend.length-1);
@@ -82,26 +85,36 @@ app.controller('registerController', ['UserService', '$location', '$window', '$h
                                     .then(function (res) {
                                         if (res) {
                                             if (res['data']['register']) {
+                                                self.disableButton = false;
                                                 console.log('register!');
                                                 $window.alert('You Register succesfuly! please login to continue');
                                                 $location.path('/login');
                                             }
                                             else {
+                                                self.disableButton = false;
                                                 $window.alert('Error1! ' + res['error']);
                                             }
                                         }
                                         else {
+                                            self.disableButton = false;
                                             $window.alert('Error2! ' + res['error'] + ' please try again');
                                         }
                                     }, function (errorResponse) {
+                                        self.disableButton = false;
                                         $window.alert('Error3! '+errorResponse);
                                     });
                             }
+                            else{ //no category has been chosen
+                                self.disableButton = false;
+                                $window.alert('Error! please choose favorite category');
+                            }
                         }
                         else{
+                            self.disableButton = false;
                             $window.alert('Error! username "'+self.user.username+'" is already taken, please try a different one');
                         }
                     }, function (errorResponse) {
+                        self.disableButton = false;
                         $window.alert('Error4! '+errorResponse);
                     });
             }

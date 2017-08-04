@@ -62,7 +62,7 @@
                 <p ng-show="registerForm.passwordInput.$invalid && !registerForm.passwordInput.$pristine" class="help-block">Password needs to be between 5 and 10 characters</p>
             </div>
             <div class="form-group">
-                <label>email</label>
+                <label>*email</label>
                 <input type="email"
                        ng-model="registerCtrl.user.mail"
                        ng-required="true"
@@ -100,6 +100,7 @@
                        placeholder="Enter Answer for restoring qustion acount">
                 <p ng-show="registerForm.restoreAnsInput.$invalid && !registerForm.restoreAnsInput.$pristine" class="help-block">answer is required</p>
             </div>
+
             <div class="form-group" ng-init="registerCtrl.initCats()">
                 <label>*Favorite Categories (Choose at least one):</label><br/>
 
@@ -111,19 +112,20 @@
                             ng-model="registerCtrl.categories[cat]"
                             name = "favsInput"> {{registerCtrl.categoriesArr[cat]['CategoryName']}}
                 </label>
-                <p ng-show="registerForm.favsInput.$invalid && !registerForm.favsInput.$pristine" class="help-block">category is required</p>
+                <p ng-show="registerForm.favsInput.$invalid && registerForm.favsInput.$pristine" class="help-block">category is required</p>
             </div>
+            <br/>
             <div>
                 <input type="submit"
                        class="btn btn-success btn-lg"
                        value="Register"
-                       ng-disabled="registerForm.$invalid">
+                       ng-disabled="registerForm.$invalid || registerCtrl.disableButton">
             </div>
         </form>
         <div>
             {{registerCtrl.errorMessage}}
         </div>
-        <p>Fields with * are requried</p>
+        <p align="center">Fields with * are requried</p>
     </div>
 
 </div>

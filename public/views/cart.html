@@ -10,10 +10,10 @@
 
 <div ng-controller="cartController as cartCtrl" class="webpage" id="cart">
     <br>
-    <table>
-        <tr align="justify" align="center">
+    <table align="center">
+        <tr align="center">
             <td width="50%" align="center" valign="top">
-                <div id="left" ng-show="cartCtrl.showCartProds">
+                <div ng-show="cartCtrl.showCartProds">
                     <div ng-show="cartCtrl.showProdsList">
                         <div >
                             <table>
@@ -64,9 +64,11 @@
                         </table>
                         <img ng-src="views\pics\back.png" ng-click="cartCtrl.showProd()" width="40">
                     </div>
+                    <div ng-show="cartCtrl.showProdsList">
                     <button ng-show="cartCtrl.prods.length>0" ng-click="cartCtrl.ExecuteOrder()">
                         Place order
                     </button>
+                    </div>
                     <br/>
                     <br/>
 
@@ -76,7 +78,7 @@
                 </div>
                 <br/><br/><br/><br/>
                 <div>
-                    <a ng-href="#/history">View Orders History</a>
+                    <a ng-href="#/history"> - View Orders History - </a>
                 </div>
             </td>
 

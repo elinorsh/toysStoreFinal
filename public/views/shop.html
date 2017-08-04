@@ -13,7 +13,7 @@
         <tr align="justify" align="center">
             <td width="50%" align="center" valign="top">
                 <h5>Products</h5>
-                <div>
+                <div ng-hide="!prodsCtrl.showProds">
                     <label>Filter Results:</label>
                     <select ng-model="prodsCtrl.selectedCat"
                             ng-options="category.CategoryName for category in prodsCtrl.categories track by category.CategoryName"

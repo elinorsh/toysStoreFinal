@@ -10,9 +10,7 @@ app.controller('homeController', ['$http','$location','UserService','CartService
     self.showTop=true;
     self.showNew = UserService.isLoggedIn;
     let cookie = localStorageService.cookie.get('user');
-    console.log('cookie is: '+JSON.stringify(cookie));
     self.UserService = UserService;
-    console.log('home cotroller. isLoggedIn: '+UserService.isLoggedIn);
 
     if(cookie && !UserService.isLoggedIn){
         let username = cookie['username'];
@@ -24,9 +22,7 @@ app.controller('homeController', ['$http','$location','UserService','CartService
             $window.alert('You are logged in');
             $location.path('/');
         }, function (error) {
-            //self.errorMessage = error.data;
             console.log('login has failed. error: '+JSON.stringify(error.data));
-            //$window.alert('log-in has failed');
         });
     }
 

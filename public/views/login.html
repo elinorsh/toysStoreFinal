@@ -69,8 +69,8 @@
         </div>
         <div ng-hide="!loginCtrl.showRestoreQues">
             <form name="restorePassForm" ng-submit="loginCtrl.checkRestoreAns()" novalidate>
-                please answer the question:<br/><br/>
-                {{loginCtrl.restoreQ}}?
+                <label>please answer the question:<br/><br/>
+                    {{loginCtrl.restoreQ}}? </label>
                 <br/>
                 <input type="text"
                        ng-model="loginCtrl.user.restoreAnsInput"

@@ -26,14 +26,6 @@ app.config( ['$routeProvider', function($routeProvider) {
             templateUrl : "views/login.html",
             controller : "loginController"
         })
-        .when("/cities", {
-            templateUrl : "views/cities.html",
-            controller: 'citiesController'
-        })
-        .when("/storage", {
-            templateUrl : "views/storage.html",
-            controller: 'storageController'
-        })
         .when("/shop", {
             templateUrl : "views/shop.html",
             controller: 'productController'
@@ -44,23 +36,59 @@ app.config( ['$routeProvider', function($routeProvider) {
         })
         .when("/cart", {
             templateUrl : "views/cart.html",
-            controller: 'cartController'
-        })
-        .when("/test", {
-            templateUrl : "views/test.html",
-            controller: 'homeController'
+            controller: 'cartController',
+            resolve: {
+                "check": function (UserService, $location) {
+                    if (!UserService.isLoggedIn) {
+                        console.log('isLoggedIN: '+UserService.isLoggedIn);
+                        alert("You don't have access here!");
+                        $location.path('/');
+                    }
+                }
+            }
         })
         .when("/history", {
             templateUrl : "views/history.html",
-            controller: 'historyController'
+            controller: 'historyController',
+            resolve: {
+                "check": function (UserService, $location) {
+                    if (!UserService.isLoggedIn) {
+                        console.log('isLoggedIN: '+UserService.isLoggedIn);
+                        alert("You don't have access here!");
+                        $location.path('/');
+                    }
+                }
+            }
         })
         .when("/about", {
             templateUrl : "views/about.html",
-            //controller: 'historyController'
+            resolve: {
+                "check": function (UserService, $location) {
+                    if (!UserService.isLoggedIn) {
+                        console.log('isLoggedIN: '+UserService.isLoggedIn);
+                        alert("You don't have access here!");
+                        $location.path('/');
+                    }
+                }
+            }
         })
         .otherwise({redirect: '/',
         });
 }]);
 
 //-------------------------------------------------------------------------------------------------------------------
-
+//
+// app.run(['$rootScope', '$location', 'UserService', function ($rootScope, $location, UserService) {
+//     $rootScope.$on('$routeChangeStart', function (event) {
+//         console.log(event);
+//         if (!UserService.isLoggedIn()) {
+//             console.log('DENY');
+//             event.preventDefault();
+//             $location.path('/login');
+//         }
+//         else {
+//             console.log('ALLOW');
+//             $location.path('/home');
+//         }
+//     });
+// }]);
